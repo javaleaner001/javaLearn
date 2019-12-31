@@ -1,4 +1,4 @@
-package com.fuxl.javalearn.threadDemo;
+package com.fuxl.threadDemo;
 
 import java.util.HashMap;
 import java.util.List;

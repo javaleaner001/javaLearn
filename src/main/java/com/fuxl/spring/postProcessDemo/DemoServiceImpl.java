@@ -7,8 +7,14 @@ import org.springframework.stereotype.Component;
 public class DemoServiceImpl implements DemoService {
     @Autowired
     public City city;
+
+    public DemoServiceImpl() {
+        System.out.println("======执行DemoServiceImpl构造函数======");
+    }
+
     @Override
-    public void getAddress() {
-        System.out.println("DemoServiceImp");
+    public String getAddress() {
+        System.out.println("======DemoServiceImp#getAddress======");
+        return "ShangHai";
     }
 }

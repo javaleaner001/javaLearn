@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 //@Component
 public interface DemoService {
-    void getAddress();
+    String getAddress();
 }

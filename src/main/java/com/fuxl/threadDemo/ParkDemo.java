@@ -1,5 +1,5 @@
 
-package com.fuxl.javalearn.threadDemo;
+package com.fuxl.threadDemo;
 
 import java.util.concurrent.locks.LockSupport;
 
