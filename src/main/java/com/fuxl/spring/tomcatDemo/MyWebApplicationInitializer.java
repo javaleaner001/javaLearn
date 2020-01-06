@@ -26,6 +26,8 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         DispatcherServlet servlet = new DispatcherServlet(ac);
         ServletRegistration.Dynamic registration = servletCxt.addServlet("app", servlet);
         registration.setLoadOnStartup(1);
-        registration.addMapping("*.do");
+        //支持异步返回<async-supported>true</async-supported>
+        registration.setAsyncSupported(true);
+        registration.addMapping("/*");
     }
 }

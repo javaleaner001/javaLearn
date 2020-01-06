@@ -25,7 +25,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
         SmartInstantiationAwareBeanPostProcessor, MergedBeanDefinitionPostProcessor, BeanPostProcessor {
 
     /**
-     * 第一次调用后置处理器，当前beanName代表的类要不要加代理，加了代理直接代理返回（AOP:JdkProxy/CGlib）
+     * 第一次调用后置处理器，当前beanName代表的类要不要加代理，加了代理则直接代理返回（AOP:JdkProxy/CGlib）
      * 注意：如果这里被代理，好没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
      * AbstractAutoProxyCreator#postProcessBeforeInstantiation：AOP代理创建
      * org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#resolveBeforeInstantiation
@@ -43,7 +43,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
         System.out.println("====1====在调用doCreateBean()之前，如果方法返回不为空，则返回的对象将作为Bean，避免调用doCreateBean()");
 
         //注意：如果这里被代理，好没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
-        /*if(beanName.equals("city")){
+        if(beanName.equals("city")){
          System.out.println("====1====注意：如果这里被代理，还没有执行循环引用逻辑， 就返回了bean，循环引用时会报错");
             City city = (City)new MyMethodInterceptor().createProxyInstance(new City());
             return city;
@@ -57,7 +57,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
             DemoService demoService = (DemoService) Proxy.newProxyInstance(DemoServiceImpl.class.getClassLoader(), DemoServiceImpl.class.getInterfaces(), myInvocationHandler);
 //            demoService.getAddress();
             return demoService;
-        }*/
+        }
         return null;
     }
 
@@ -75,6 +75,12 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
         return null;
     }
 
+    /**
+     * 修改RootBeanDefinition
+     * @param rootBeanDefinition
+     * @param aClass
+     * @param s
+     */
     @Override
     public void postProcessMergedBeanDefinition(RootBeanDefinition rootBeanDefinition, Class<?> aClass, String s) {
         System.out.println("====3====MergedBeanDefinitionPostProcessor#postProcessMergedBeanDefinition");
@@ -142,7 +148,13 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
         return bean;
     }
 
+    /** 这里的 targetSourcedBeans 将与 earlyProxyReferences 一起分析
+     *  targetSourcedBeans: 当在实例化前置方法 postProcessBeforeInstantiation 中创建了代理类, 则在 targetSourcedBeans 中将添加 beanName, 也就是 targetSourcedBeans 中含有 beanName 则说明这个类被动态代理了
+     *  earlyProxyReferences: 当 Bean 被循环引用, 并且被暴露了, 则会通过 getEarlyBeanReference 来创建代理类; 在初始化后置方法 postProcessAfterInitialization 中也会通过判断 earlyProxyReferences 中是否存在 beanName 来决定是否需要对 target 进行动态代理
+     */
+
     /**
+     *
      * 执行initializeBean方法时，调用BeanPostProcessor#applyBeanPostProcessorsAfterInitialization后置处理器，创建AOP代理（JdkProxy/GCLib）
      *  org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#doCreateBean
      * org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#initializeBean(java.lang.String, java.lang.Object, org.springframework.beans.factory.support.RootBeanDefinition)

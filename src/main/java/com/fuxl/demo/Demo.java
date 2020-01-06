@@ -11,9 +11,13 @@ public class Demo {
 
     private static void treeMapDemo() {
         TreeMap treeMap = new TreeMap();
-
-        SortedMap sortedMap = treeMap.tailMap("");
-        sortedMap.firstKey();
+        treeMap.put(1,1);
+        treeMap.put(2,2);
+        treeMap.put(4,4);
+        treeMap.put(5,5);
+        treeMap.put(6,6);
+        SortedMap sortedMap = treeMap.tailMap(3);
+        System.out.println(sortedMap.firstKey());
     }
 
     private static void demo1() {
