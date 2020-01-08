@@ -21,11 +21,12 @@ public class Demo {
     }
 
     private static void demo1() {
-        Map map = new HashMap<>();
+//        Map map = new HashMap<>();
 
-        List<Map> list = new ArrayList<>();
-       /* list.forEach((key,value) -> {
-            map.put(key,"");
-        });*/
+        List list = new ArrayList<>();
+//        list.add()
+        list.forEach(str -> System.out.println(str));
     }
+
+
 }
