@@ -73,7 +73,9 @@ public class CompletableFutureDemo {
      * thenAccept只对结果执行Action，而不返回新的计算值
      */
     public static void consumer() throws ExecutionException, InterruptedException {
-        CompletableFuture<Double> completableFuture = CompletableFuture.supplyAsync(() -> Shop.getPrice()/*{
+        CompletableFuture<Double> completableFuture = CompletableFuture.supplyAsync(() -> Shop.getPrice()
+//                100.00
+                /*{
             return 100;
         }*/);
         //异步，有延时，调用get方法时获取延迟返回
