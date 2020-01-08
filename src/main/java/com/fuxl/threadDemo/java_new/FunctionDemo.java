@@ -1,4 +1,4 @@
-package com.fuxl.threadDemo;
+package com.fuxl.threadDemo.java_new;
 
 import java.util.Optional;
 import java.util.function.Consumer;

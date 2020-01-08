@@ -1,8 +1,7 @@
-package com.fuxl.threadDemo;
+package com.fuxl.threadDemo.java_new;
 
 import java.util.function.Function;
 import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public class StreamDemo {
     public static void main(String[] args) {

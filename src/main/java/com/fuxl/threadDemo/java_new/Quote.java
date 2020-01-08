@@ -1,4 +1,4 @@
-package com.fuxl.threadDemo;
+package com.fuxl.threadDemo.java_new;
 
 public class Quote {
     public Shop shop;

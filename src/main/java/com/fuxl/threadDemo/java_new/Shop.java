@@ -1,6 +1,4 @@
-package com.fuxl.threadDemo;
-
-import java.util.concurrent.Future;
+package com.fuxl.threadDemo.java_new;
 
 public class Shop {
 

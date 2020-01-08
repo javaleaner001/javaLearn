@@ -1,13 +1,10 @@
-package com.fuxl.threadDemo;
-
-import com.sun.org.apache.xpath.internal.operations.Quo;
+package com.fuxl.threadDemo.java_new;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 public class CompletableFutureDemo2 {
