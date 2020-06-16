@@ -26,7 +26,7 @@ public class MyInvocationHandler implements InvocationHandler {
     }
 
     public Object getProxy(Class clazz) {
-        //1、传入接口类
+        //1、传入接口类(mybatis)
         Class inClazz[] = new Class[]{clazz};
         return Proxy.newProxyInstance(clazz.getClassLoader(), inClazz, this);
     }

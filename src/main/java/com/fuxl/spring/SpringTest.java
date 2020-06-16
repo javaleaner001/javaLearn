@@ -19,6 +19,9 @@ public class SpringTest {
 
         //mybatisDemo
         System.out.println(ac.getBean("myFactoryBean"));
+        //com.fuxl.spring.mybatisDemo.QueryDao
+        System.out.println(ac.getBean("&myFactoryBean"));
+        //com.fuxl.spring.mybatisDemo.MyFactoryBean@a7bfbc
 
 
 

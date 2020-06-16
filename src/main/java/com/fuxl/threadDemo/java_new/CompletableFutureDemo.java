@@ -59,7 +59,10 @@ public class CompletableFutureDemo {
         CompletableFuture<String> stringCompletableFuture = completableFuture.thenApplyAsync(i -> i * 10).thenApply(integer -> integer.toString());
         /**
          * thenCombine:此阶段与其它阶段一起完成，进而触发下一阶段,thenCombine整合两个计算结果
-         * thenCombine的功能更类似thenAcceptBoth，只不过thenAcceptBoth是纯消费，它的函数参数没有返回值，而thenCombine的函数参数fn有返回值
+         * thenCombine的功能更类似thenAcceptBoth，只不过thenAcceptBoth是纯消费，它的函数参数没有返回值，而thenCombine的函数参数有返回值
+         * thenCompose等上面返回结果后在调用
+         * thenCombine同时调用 此阶段与其它阶段一起完成，进而触发下一阶段
+         * thenAccept异步结束之后
          */
         CompletableFuture<Double> stringCompletableFuture1 = completableFuture.thenCombine(completableFuture2, (x, y) -> x + y);
         System.out.println(stringCompletableFuture1.get());
@@ -69,7 +72,7 @@ public class CompletableFutureDemo {
     }
 
     /**
-     * 消费
+     * 消费 thenAccept实现于Consumer.accept()
      * thenAccept只对结果执行Action，而不返回新的计算值
      */
     public static void consumer() throws ExecutionException, InterruptedException {
@@ -89,7 +92,7 @@ public class CompletableFutureDemo {
         /*CompletableFuture<Void> voidCompletableFuture1 = completableFuture.thenRun(() -> {
             System.out.println(100);
         });*/
-        System.out.println(voidCompletableFuture.get());
+        System.out.println("***"+voidCompletableFuture.get());
     }
 
     /**
@@ -113,6 +116,7 @@ public class CompletableFutureDemo {
         Future<Double> priceAsSync = getPriceAsSync("");
         System.out.println("耗时：" + (System.currentTimeMillis() - start));
         double price = priceAsSync.get();
+        System.out.println(price);
     }
 
     public static Future<Double> getPriceAsSync(String product) {

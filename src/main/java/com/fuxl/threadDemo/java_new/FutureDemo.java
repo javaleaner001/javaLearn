@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class FutureDemo {
 
     public static String doSthLongOperation() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         return "123";
     }
 
@@ -15,7 +15,7 @@ public class FutureDemo {
         System.out.println(System.currentTimeMillis());
         Future<String> future = executorService.submit(FutureDemo::doSthLongOperation);
         System.out.println(System.currentTimeMillis() - start);
-        System.out.println(future.get());
+        System.out.println(future.get());//阻塞
         System.out.println(System.currentTimeMillis() - start);
     }
 }

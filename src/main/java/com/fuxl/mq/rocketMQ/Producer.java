@@ -1,4 +1,4 @@
-package com.fuxl.rocketMQ;
+package com.fuxl.mq.rocketMQ;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
@@ -11,9 +11,9 @@ public class Producer {
 
     public static void main(String[] args) {
         try {
-            asyncProducer();
+//            asyncProducer();
 //            onewayProducer();
-//            syncProducer();
+            syncProducer();
 //            testDemo();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,7 +29,7 @@ public class Producer {
         producer.setNamesrvAddr("127.0.0.1:9876");
         //Launch the instance.
         producer.start();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             //Create a message instance, specifying topic, tag and message body.
             Message msg = new Message("demo" /* Topic */,
                     "TagA" /* Tag */,
@@ -46,16 +46,16 @@ public class Producer {
 
     public static void asyncProducer() throws Exception {
         //Instantiate with a producer group name.
-        DefaultMQProducer producer = new DefaultMQProducer("defaultGroup");
+        DefaultMQProducer producer = new DefaultMQProducer("DefaultCluster");
         // Specify name server addresses.
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("127.0.0.1:9876");
         //Launch the instance.
         producer.start();
         producer.setRetryTimesWhenSendAsyncFailed(0);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 2; i++) {
             final int index = i;
             //Create a message instance, specifying topic, tag and message body.
-            Message msg = new Message("demo",
+            Message msg = new Message("RMQ_SYS_TRANS_HALF_TOPIC",
                     "TagA",
                     "OrderID188",
                     "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
@@ -82,7 +82,7 @@ public class Producer {
         //Instantiate with a producer group name.
         DefaultMQProducer producer = new DefaultMQProducer("defaultGroup");
         // Specify name server addresses.
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("127.0.0.1:9876");
         //Launch the instance.
         producer.start();
         for (int i = 0; i < 100; i++) {

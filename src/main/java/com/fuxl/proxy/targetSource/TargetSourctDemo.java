@@ -11,7 +11,7 @@ public class TargetSourctDemo {
         TargetSource targetSource = new SingletonTargetSource(target);
         // 使用SpringAOP框架的代理工厂直接创建代理对象
         TargetBean proxy = (TargetBean) ProxyFactory.getProxy(targetSource);
-        // 这里会在控制台打印：com.lixin.aopdemo.TargetBean$$EnhancerBySpringCGLIB$$767606b3
+        // 这里会在控制台打印：com.fuxl.proxy.targetSource.TargetBean$$EnhancerBySpringCGLIB$$39df84d3
         System.out.println(proxy.getClass().getName());
         proxy.show();
 

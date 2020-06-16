@@ -1,4 +1,4 @@
-package com.fuxl.rocketMQ;
+package com.fuxl.mq.rocketMQ;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -16,7 +16,7 @@ public class Consumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("defaultGroup");
 
         // Specify name server addresses.
-        consumer.setNamesrvAddr("localhost:9876");
+        consumer.setNamesrvAddr("127.0.0.1:9876");
 
         // Subscribe one more more topics to consume.
         consumer.subscribe("RMQ_SYS_TRANS_HALF_TOPIC", "*");

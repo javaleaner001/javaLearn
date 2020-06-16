@@ -26,7 +26,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
 
     /**
      * 第一次调用后置处理器，当前beanName代表的类要不要加代理，加了代理则直接代理返回（AOP:JdkProxy/CGlib）
-     * 注意：如果这里被代理，好没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
+     * 注意：如果这里被代理，还没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
      * AbstractAutoProxyCreator#postProcessBeforeInstantiation：AOP代理创建
      * org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#resolveBeforeInstantiation
      * org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#applyBeanPostProcessorsBeforeInstantiation
@@ -42,7 +42,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
         System.out.println("====1====InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation");
         System.out.println("====1====在调用doCreateBean()之前，如果方法返回不为空，则返回的对象将作为Bean，避免调用doCreateBean()");
 
-        //注意：如果这里被代理，好没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
+        //注意：如果这里被代理，还没有执行循环引用逻辑， 就返回了bean，循环引用时会报错
         if(beanName.equals("city")){
          System.out.println("====1====注意：如果这里被代理，还没有执行循环引用逻辑， 就返回了bean，循环引用时会报错");
             City city = (City)new MyMethodInterceptor().createProxyInstance(new City());
@@ -92,7 +92,7 @@ public class MyBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdap
      * 回头去注入DemoService的bean，发现DemoService中有City需要注入，形成循环引用，
      * 此时getSingleton获取City的Bean,该方法中判断City是否正在创建中，如果是
      * 先调用SmartInstantiationAwareBeanPostProcessor#getEarlyBeanReference后置处理器，然后
-     * 从二级缓存工厂中拿出City对象进行注入
+     * 从二级缓存工厂中拿出City对象进行注入（对象和bean区别）
      * org.springframework.beans.factory.support.AbstractBeanFactory#doGetBean
      * org.springframework.beans.factory.support.DefaultSingletonBeanRegistry#getSingleton(java.lang.String)
      * org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor#getEarlyBeanReference

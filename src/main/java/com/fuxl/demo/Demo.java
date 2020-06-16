@@ -11,22 +11,20 @@ public class Demo {
 
     private static void treeMapDemo() {
         TreeMap treeMap = new TreeMap();
-        treeMap.put(1,1);
-        treeMap.put(2,2);
-        treeMap.put(4,4);
-        treeMap.put(5,5);
-        treeMap.put(6,6);
+        treeMap.put(1, 1);
+        treeMap.put(2, 2);
+        treeMap.put(4, 4);
+        treeMap.put(5, 5);
+        treeMap.put(6, 6);
+        //获取比3大的第一个值
         SortedMap sortedMap = treeMap.tailMap(3);
         System.out.println(sortedMap.firstKey());
     }
 
     private static void demo1() {
-//        Map map = new HashMap<>();
+        List list = Arrays.asList("1", "2", "3");
+        list.forEach(value -> System.out.println(value));
+        list.forEach(System.out::println);
 
-        List list = new ArrayList<>();
-//        list.add()
-        list.forEach(str -> System.out.println(str));
     }
-
-
 }
