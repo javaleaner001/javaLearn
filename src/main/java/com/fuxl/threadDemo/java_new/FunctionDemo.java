@@ -1,6 +1,7 @@
 package com.fuxl.threadDemo.java_new;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,7 +11,9 @@ import java.util.stream.Stream;
 public class FunctionDemo {
 
     public static void main(String[] args) {
-        functionLearn();
+//        functionLearn();
+        Student student = new Student("Tom",1);
+//        CompletableFuture.supplyAsync(()->student.getAge()).thenApply(age->age+10).thenCompose(age2->CompletableFuture.supplyAsync());
 
     }
 
@@ -34,10 +37,21 @@ public class FunctionDemo {
         System.out.println(predicate.or(a -> a > 5).test(1));
         //用于简化Java中对空值的判断处理，以防止出现各种空指针异常。
         System.out.println("**Optional用于简化Java中对空值的判断处理，以防止出现各种空指针异常**");
+        //  of() 和 ofNullable() 方法创建包含值的 Optional。两个方法的不同之处在于如果你把 null 值作为参数传递进去，of() 方法会抛出 NullPointerException：
+        Optional.of(optionalDemo());
         Optional<String> optional = Optional.empty();
-        System.out.println(optional.orElseGet(FunctionDemo::optionalDemo));
         optional = Optional.ofNullable(optionalDemo());
+        //两个 Optional  对象都包含非空值，两个方法都会返回对应的非空值。不过，orElse() 方法仍然创建了 User 对象。与之相反，orElseGet() 方法不创建 User 对象。
+        //在执行较密集的调用时，比如调用 Web 服务或数据查询，这个差异会对性能产生重大影响
+        System.out.println(optional.orElseGet(FunctionDemo::optionalDemo));
+        System.out.println(optional.orElse("1"));
+        //fPresent() 方法。该方法除了执行检查，还接受一个Consumer(消费者) 参数，如果对象不是空的，就对执行传入的 Lambda 表达式
         optional.ifPresent(FunctionDemo::voidDemo);
+        optional.isPresent();
+        Optional.ofNullable(Arrays.asList("")).map(list->list.get(0)).orElse("");
+        Optional.ofNullable(1).filter(value->value!=1).orElse(1);
+        System.out.println(Optional.ofNullable(new Student("Tom", 12)).flatMap(student -> Optional.ofNullable(student.getAge())).map(age -> age + 2).filter(age -> age <20).orElseGet(()->20));//14
+        System.out.println(Optional.ofNullable(new Student("Tom", 112)).flatMap(student -> Optional.ofNullable(student.getAge())).map(age -> age + 2).filter(age -> age <20).orElse(20));//20
         //Stream
         System.out.println("**Stream**");
         Stream<Integer> integerStream = Stream.of(1, 2);

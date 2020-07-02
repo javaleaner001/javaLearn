@@ -49,23 +49,27 @@ public class TomcatDemoController {
     @ResponseBody
     public Callable<Map<String, String>> callDemo() {
         //异步调用测试
+        System.out.println("call.do");
         Callable result =()-> {
             /*@Override
             public Object call() throws Exception {*/
-                Thread.sleep(5000);
-                Map map = new HashMap();
-                map.put("callKey", "callValue");
-                System.out.println("===subThread===call.do");
-                return map;
+            Thread.sleep(5000);
+            Map map = new HashMap();
+            map.put("callKey", "callValue");
+            System.out.println("===subThread===call.do");
+            return map;
 //            }
         };
-        System.out.println("call.do");
+        System.out.println("异步处理已开始，后面可以处理其他业务逻辑。");
+        //其他业务逻辑
         return result;
     }
 
     /**
      * 异步调用（不同请求中，消息中间件方式）
-     *
+     *DeferredResult需要自己用线程来处理结果setResult，而Callable的话不需要我们来维护一个结果处理线程。
+     * 总体来说，Callable的话更为简单，同样的也是因为简单，灵活性不够；相对地，DeferredResult更为复杂一些，但是又极大的灵活性。
+     * 在可以用Callable的时候，直接用Callable；而遇到Callable没法解决的场景的时候，可以尝试使用DeferredResult。
      * @return
      */
     @RequestMapping("/deferredResult")
@@ -76,15 +80,17 @@ public class TomcatDemoController {
         concurrentHashMap.put("deferredResultId", deferredResult);
         System.out.println("deferredResult.do");
         //模拟消息监听
-        new Thread() {
+        new Thread(()-> listenerDeferrendResult(new HashMap<>())).start();
+       /* new Thread() {
             @Override
             public void run() {
                 listenerDeferrendResult(new HashMap<>());
             }
-        }.start();
+        }.start();*/
+        System.out.println("监听开始，后面可以继续处理其他业务逻辑。");
+        //其他业务逻辑
         return deferredResult;
     }
-
     /**
      * 消息监听及接收
      *
