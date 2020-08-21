@@ -1,4 +1,4 @@
-package com.fuxl.spring.mybatisDemo;
+package com.fuxl.spring.mybatisDemo.service;
 
 import org.apache.ibatis.annotations.Select;
 

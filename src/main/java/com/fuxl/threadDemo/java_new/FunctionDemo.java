@@ -12,9 +12,33 @@ public class FunctionDemo {
 
     public static void main(String[] args) {
 //        functionLearn();
-        Student student = new Student("Tom",1);
+//        Student student = new Student("Tom",1);
 //        CompletableFuture.supplyAsync(()->student.getAge()).thenApply(age->age+10).thenCompose(age2->CompletableFuture.supplyAsync());
 
+//        listCollectionUtils();
+
+    }
+
+    private static void listCollectionUtils() {
+        //List差集、交集、并集
+        List list1 = new ArrayList();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+        list1.add(4);
+
+        List<Map<String,Integer>> list2 = new ArrayList();
+        Map<String,Integer> map= new HashMap();
+        map.put("a",4);
+        map.put("b",5);
+        Map<String,Integer> map1= new HashMap();
+        map1.put("a",5);
+        map1.put("b",5);
+        list2.add(map);
+        list2.add(map1);
+
+//        System.out.println(list1.stream().filter(num ->! list2.contains(num)).collect(Collectors.toList()));
+        System.out.println(list2.stream().filter(map2 -> !list1.contains(map2.get("a"))).collect(Collectors.toList()));
     }
 
     private static void functionLearn() {

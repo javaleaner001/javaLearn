@@ -1,5 +1,6 @@
 package com.fuxl.spring.mybatisDemo;
 
+import com.fuxl.spring.mybatisDemo.service.QueryDao;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 

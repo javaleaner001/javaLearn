@@ -92,13 +92,19 @@ public class DemoTest {
 //        new Thread(futureTask).start();
         ExecutorService executorService = new ThreadPoolExecutor(4, 8, 0, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>(200));
         for (int i = 0; i < 10; i++) {
-            FutureTask futureTask = new FutureTask(new Callable() {
+          /*  FutureTask futureTask = new FutureTask(new Callable() {
                 @Override
                 public Object call() throws Exception {
                     System.out.println("===callable===");
-                    Thread.sleep(50);
+                    Thread.sleep(5000);
                     return Thread.currentThread().getName();
                 }
+            });*/
+
+            FutureTask futureTask = new FutureTask(()->{
+                System.out.println("===callable===");
+                Thread.sleep(500);
+                return Thread.currentThread().getName();
             });
             System.out.println(i);
             /**
@@ -106,8 +112,8 @@ public class DemoTest {
              *1、接收的参数不一样
              * 2、submit有返回值，而execute没有
              *
-             * 用到返回值的例子，比如说我有很多个做validation的task，我希望所有的task执行完，然后每个task告诉我它的执行结果，是成功还是失败，如果是失败，原因是什么。
-             * 然后我就可以把所有失败的原因综合起来发给调用者。
+             * 用到返回值的例子，比如说我有很多个做validation的task，我希望所有的task执行完，然后每个task告诉我它的执行结果，是成功还是失败，
+             * 如果是失败，原因是什么。 然后我就可以把所有失败的原因综合起来发给调用者。
              *
              * 个人觉得cancel execution这个用处不大，很少有需要去取消执行的。
              *
@@ -119,6 +125,7 @@ public class DemoTest {
 //            executorService.execute(new Thread(futureTask));
             Future<?> submit = executorService.submit(new Thread(futureTask));//线程池执行FutureTask方法
             try {
+                //submit.get()等任务执行完毕会打印null
                 if(submit.get()==null){
                     System.out.println("任务完成");
                 }

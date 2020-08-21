@@ -1,5 +1,7 @@
 package com.fuxl.demo;
 
+import org.openjdk.jol.info.ClassLayout;
+
 import java.util.*;
 
 public class Demo {
@@ -61,11 +63,19 @@ public class Demo {
     }
 
     public static void main(String[] args) {
+
 //        demo1();
+//        singleDemo();
+        //        treeMapDemo();
+Object obj = new Object();
+        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
+    }
+
+    private static void singleDemo() {
         //饿汉模式静态生成对象，jvm启动时创建
         System.out.println(fruits);
         System.out.println(fruits);
-        boolean flage = Type.APPLE==Type.APPLE;
+        boolean flage = Type.APPLE== Type.APPLE;
         System.out.println(flage);
         Fruits fruits = new Fruits();
         fruits.setName(String.valueOf(Type.APPLE));
@@ -74,7 +84,6 @@ public class Demo {
         //枚举类单例模式，不能延迟初始化
         System.out.println(Fruits.SingletonEnum.INSTANCE.getInstnce());
         System.out.println(Fruits.SingletonEnum.INSTANCE.getInstnce());
-//        treeMapDemo();
     }
 
     private static void treeMapDemo() {

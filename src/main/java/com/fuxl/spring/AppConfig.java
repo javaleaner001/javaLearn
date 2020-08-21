@@ -1,8 +1,8 @@
 package com.fuxl.spring;
 
-import com.fuxl.spring.aopDemo.Person;
 import com.fuxl.spring.mybatisDemo.MyScan;
-import com.fuxl.spring.mybatisDemo.QueryDao;
+import com.fuxl.spring.mybatisDemo.service.QueryDao;
+import com.fuxl.spring.mybatisDemo.service.UserDao;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,10 +32,9 @@ public class AppConfig {
 
 
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
-
         //1.aopDemo
-        Person bean = ac.getBean(Person.class);
-        bean.getOffer();
+//        Person bean = ac.getBean(Person.class);
+//        bean.getOffer();
 
         //2.jdk 动态代理
 //        MyInvocationHandler myInvocationHandler = new MyInvocationHandler();
@@ -48,9 +47,11 @@ public class AppConfig {
         /*System.out.println(ac.getBean("&myFactoryBean"));
         System.out.println(ac.getBean("myFactoryBean"));
         System.out.println(ac.getBean("qDao"));*/
-        //3.2 使用ImportBeanDefinitionRegistar MyBeanFactoryNew
-//        QueryDao qDao = (QueryDao)ac.getBean("qDao");
-//        qDao.query();
+//        3.2 使用ImportBeanDefinitionRegistar MyBeanFactoryNew
+        QueryDao qDao = (QueryDao)ac.getBean("queryDao");
+        qDao.query();
+        UserDao uDao = (UserDao)ac.getBean("userDao");
+        uDao.query();
 
 //        ac.getBean("cityService");
     }

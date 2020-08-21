@@ -5,6 +5,9 @@ import java.util.stream.LongStream;
 
 public class StreamDemo {
     public static void main(String[] args) {
+//        500000500000:3
+//        500000500000:10
+//        500000500000:3
         test(StreamDemo::parallelSum, 1000000);
         test(StreamDemo::sequenceSum, 1000000);
         test(StreamDemo::itorSum, 1000000);

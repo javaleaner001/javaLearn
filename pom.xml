@@ -137,6 +137,12 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 
+        <!--java object layout -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.10</version>
+        </dependency>
 
     </dependencies>
 
