@@ -10,7 +10,13 @@ import org.springframework.stereotype.Component;
  *
  * 第三方对象交给spring管理
  * 1、@Bean
- * 2、ConfigurableListableBeanFactory(DefaultListableBeanFactory).registerSingleton("systemProperties", this.getEnvironment().getSystemProperties());
+ * 2、单例存储：ConfigurableListableBeanFactory(DefaultListableBeanFactory).registerSingleton("systemProperties", this.getEnvironment().getSystemProperties());
+ * 底层：
+ *      this.singletonObjects.put(beanName, singletonObject);
+ *      this.singletonFactories.remove(beanName);
+ *      this.earlySingletonObjects.remove(beanName);
+ *      this.registeredSingletons.add(beanName);
+ *
  * 3、实现FactoryBean 可以使用@Component注入spring容器（MyFactoryBean）或者直接手动放入beanDefinitionMap中(见MyImportBeanDefinitionRegistar)
  * 当class实现类了FactoryBean时，通过getBean方法返回的不是FactoryBean本身，而是 FactoryBean#getObject()方法所返回的对象，相当于FactoryBean#getObject()代理了getBean()方法
  *  区别于：
@@ -18,6 +24,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MyFactoryBean implements FactoryBean {
+    /**
+     * System.out.println(ac.getBean("myFactoryBean"));
+     * 打印信息：com.fuxl.spring.mybatisDemo.service.QueryDao
+     * System.out.println(ac.getBean("&myFactoryBean"));
+     * 打印信息：com.fuxl.spring.mybatisDemo.MyFactoryBean@26275bef
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object getObject() throws Exception {
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler();

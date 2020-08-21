@@ -42,16 +42,20 @@ public class AppConfig {
 //        dao.query();
 
         //3.mybatisDemo
-        //3.1 使用FactoryBean MyBeanFactory
+        /*3.1 使用FactoryBean MyBeanFactory
         //BeanFactory FactoryBean区别
-        /*System.out.println(ac.getBean("&myFactoryBean"));
+         * com.fuxl.spring.mybatisDemo.MyFactoryBean@26275bef
+         * com.fuxl.spring.mybatisDemo.service.QueryDao
+         * com.fuxl.spring.mybatisDemo.service.QueryDao
+         */
+        System.out.println(ac.getBean("&myFactoryBean"));
         System.out.println(ac.getBean("myFactoryBean"));
-        System.out.println(ac.getBean("qDao"));*/
+        System.out.println(ac.getBean("queryDao"));
 //        3.2 使用ImportBeanDefinitionRegistar MyBeanFactoryNew
-        QueryDao qDao = (QueryDao)ac.getBean("queryDao");
+      /*  QueryDao qDao = (QueryDao)ac.getBean("queryDao");
         qDao.query();
         UserDao uDao = (UserDao)ac.getBean("userDao");
-        uDao.query();
+        uDao.query();*/
 
 //        ac.getBean("cityService");
     }
